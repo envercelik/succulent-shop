@@ -92,4 +92,13 @@ class LoginViewModel(
         _passwordErrorMessage.value = passwordValidator.validate(password.value.orEmpty())
         return _passwordErrorMessage.value == null
     }
+
+    fun onCreateAccountButtonClick() {
+        navigateToSignupScreen()
+    }
+
+    private fun navigateToSignupScreen() {
+        val directions = LoginFragmentDirections.actionLoginFragmentToSignupFragment()
+        navigation.navigate(directions)
+    }
 }

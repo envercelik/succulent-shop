@@ -4,15 +4,26 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import school.cactus.succulentshop.R
+import androidx.fragment.app.viewModels
+import school.cactus.succulentshop.databinding.FragmentSignupBinding
+import school.cactus.succulentshop.infra.BaseFragment
 
-class SignupFragment : Fragment() {
+class SignupFragment : BaseFragment() {
+    private var _binding: FragmentSignupBinding? = null
+    val binding get() = _binding!!
+    override val viewModel: SignupViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_signup, container, false)
+    ): View {
+        _binding = FragmentSignupBinding.inflate(inflater, container, false)
+        binding.viewModel = viewModel
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
