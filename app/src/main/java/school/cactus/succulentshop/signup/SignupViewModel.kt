@@ -1,8 +1,51 @@
 package school.cactus.succulentshop.signup
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import school.cactus.succulentshop.infra.BaseViewModel
+import school.cactus.succulentshop.signup.validation.SignupEmailValidator
+import school.cactus.succulentshop.signup.validation.SignupPasswordValidator
+import school.cactus.succulentshop.signup.validation.SignupUsernameValidator
 
 class SignupViewModel : BaseViewModel() {
+    private val emailValidator = SignupEmailValidator()
+    private val usernameValidator = SignupUsernameValidator()
+    private val passwordValidator = SignupPasswordValidator()
+
+    val email = MutableLiveData<String>()
+    val username = MutableLiveData<String>()
+    val password = MutableLiveData<String>()
+
+    private val _emailErrorMessage = MutableLiveData<Int>()
+    val emailErrorMessage: LiveData<Int> = _emailErrorMessage
+
+    private val _usernameErrorMessage = MutableLiveData<Int>()
+    val usernameErrorMessage: LiveData<Int> = _usernameErrorMessage
+
+    private val _passwordErrorMessage = MutableLiveData<Int>()
+    val passwordErrorMessage: LiveData<Int> = _passwordErrorMessage
+
+    fun onButtonSignupClick() {
+        if (isEmailValid() and isUsernameValid() and isPasswordValid()) {
+            //send register request
+        }
+    }
+
+    private fun isPasswordValid(): Boolean {
+        _passwordErrorMessage.value = passwordValidator.validate(password.value.orEmpty())
+        return _passwordErrorMessage.value == null
+    }
+
+    private fun isUsernameValid(): Boolean {
+        _usernameErrorMessage.value = usernameValidator.validate(username.value.orEmpty())
+        return _usernameErrorMessage.value == null
+    }
+
+    private fun isEmailValid(): Boolean {
+        _emailErrorMessage.value = emailValidator.validate(email.value.orEmpty())
+        return _emailErrorMessage.value == null
+    }
+
     fun onButtonAlreadyHaveAccountClick() {
         navigateToLoginScreen()
     }

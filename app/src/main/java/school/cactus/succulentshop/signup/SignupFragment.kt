@@ -18,6 +18,7 @@ class SignupFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         return binding.root
     }
