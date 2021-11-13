@@ -33,4 +33,6 @@
         Password must contain one digit, one uppercase letter,
         one lowercase letter and one special character.
     </string>
+    <string name="product_detail_related_product">Related Product</string>
+    <string name="product_detail_related_product_image_description">related product image</string>
 </resources>
