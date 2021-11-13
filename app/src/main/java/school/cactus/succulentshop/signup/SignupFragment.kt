@@ -5,13 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import school.cactus.succulentshop.auth.JwtStore
 import school.cactus.succulentshop.databinding.FragmentSignupBinding
 import school.cactus.succulentshop.infra.BaseFragment
 
 class SignupFragment : BaseFragment() {
     private var _binding: FragmentSignupBinding? = null
     val binding get() = _binding!!
-    override val viewModel: SignupViewModel by viewModels()
+    override val viewModel: SignupViewModel by viewModels {
+        SignupViewModelFactory(
+            store = JwtStore(requireContext()),
+            repository = SignupRepository()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
