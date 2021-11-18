@@ -7,14 +7,12 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import school.cactus.succulentshop.R
+import school.cactus.succulentshop.common.Resource.Error.*
+import school.cactus.succulentshop.common.Resource.Success
 import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
 import school.cactus.succulentshop.infra.snackbar.SnackbarState
 import school.cactus.succulentshop.product.ProductItem
-import school.cactus.succulentshop.product.detail.ProductDetailRepository.ProductResult.Failure
-import school.cactus.succulentshop.product.detail.ProductDetailRepository.ProductResult.Success
-import school.cactus.succulentshop.product.detail.ProductDetailRepository.ProductResult.TokenExpired
-import school.cactus.succulentshop.product.detail.ProductDetailRepository.ProductResult.UnexpectedError
 import school.cactus.succulentshop.product.list.ProductListFragmentDirections
 
 class ProductDetailViewModel(
@@ -32,10 +30,10 @@ class ProductDetailViewModel(
     private fun fetchProduct() = viewModelScope.launch {
         repository.fetchProductDetail(productId).collect {
             when (it) {
-                is Success -> onSuccess(it.product)
-                TokenExpired -> onTokenExpired()
-                UnexpectedError -> onUnexpectedError()
-                Failure -> onFailure()
+                is Success -> onSuccess(it.data!!)
+                is TokenExpired -> onTokenExpired()
+                is UnexpectedError -> onUnexpectedError()
+                is Failure -> onFailure()
             }
         }
     }
