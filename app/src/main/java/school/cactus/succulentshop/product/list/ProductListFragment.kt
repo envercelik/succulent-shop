@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import school.cactus.succulentshop.R
 import school.cactus.succulentshop.databinding.FragmentProductListBinding
 import school.cactus.succulentshop.infra.BaseFragment
+import school.cactus.succulentshop.product.ProductRepository
 
 class ProductListFragment : BaseFragment() {
     private var _binding: FragmentProductListBinding? = null
@@ -15,7 +16,7 @@ class ProductListFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     override val viewModel: ProductListViewModel by viewModels {
-        ProductListViewModelFactory(ProductListRepository())
+        ProductListViewModelFactory(ProductRepository())
     }
 
     override fun onCreateView(

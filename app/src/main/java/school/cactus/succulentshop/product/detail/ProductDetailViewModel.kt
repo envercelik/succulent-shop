@@ -13,11 +13,12 @@ import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
 import school.cactus.succulentshop.infra.snackbar.SnackbarState
 import school.cactus.succulentshop.product.ProductItem
+import school.cactus.succulentshop.product.ProductRepository
 import school.cactus.succulentshop.product.list.ProductListFragmentDirections
 
 class ProductDetailViewModel(
     private val productId: Int,
-    private val repository: ProductDetailRepository
+    private val repository: ProductRepository
 ) : BaseViewModel() {
 
     private val _product = MutableLiveData<ProductItem>()
