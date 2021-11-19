@@ -1,44 +1,19 @@
 package school.cactus.succulentshop.product.detail
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import school.cactus.succulentshop.databinding.ItemRelatedProductBinding
+import androidx.recyclerview.widget.DiffUtil
+import school.cactus.succulentshop.R
+import school.cactus.succulentshop.infra.BaseAdapter
 import school.cactus.succulentshop.product.ProductItem
-import school.cactus.succulentshop.product.list.ProductAdapter.Companion.DIFF_CALLBACK
 
+class RelatedProductAdapter : BaseAdapter<ProductItem>(DiffCallback()) {
 
-class RelatedProductAdapter :
-    ListAdapter<ProductItem, RelatedProductAdapter.ProductHolder>(DIFF_CALLBACK) {
+    class DiffCallback : DiffUtil.ItemCallback<ProductItem>() {
+        override fun areItemsTheSame(oldItem: ProductItem, newItem: ProductItem) =
+            oldItem.id == newItem.id
 
-    var itemClickListener: (ProductItem) -> Unit = {}
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductHolder {
-        val binding = ItemRelatedProductBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-
-        return ProductHolder(binding, itemClickListener)
+        override fun areContentsTheSame(oldItem: ProductItem, newItem: ProductItem) =
+            oldItem == newItem
     }
 
-    override fun onBindViewHolder(holder: ProductHolder, position: Int) =
-        holder.bind(getItem(position))
-
-    class ProductHolder(
-        private val binding: ItemRelatedProductBinding,
-        private val itemClickListener: (ProductItem) -> Unit
-    ) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(product: ProductItem) {
-            binding.item = product
-            binding.executePendingBindings()
-            binding.root.setOnClickListener {
-                itemClickListener(product)
-            }
-        }
-    }
+    override fun getItemViewType(position: Int) = R.layout.item_related_product
 }
