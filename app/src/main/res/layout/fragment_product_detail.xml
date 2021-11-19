@@ -22,10 +22,10 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:contentDescription="@string/product_detail_related_product_image_description"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.product.highResImageUrl}"
                 app:layout_constraintTop_toTopOf="parent"
-                android:contentDescription="@string/product_detail_related_product_image_description"
                 tools:src="@drawable/plant1" />
 
             <TextView
@@ -92,10 +92,14 @@
                 android:layout_height="186dp"
                 android:layout_marginTop="12dp"
                 android:orientation="horizontal"
+                app:adapter="@{viewModel.adapter}"
+                app:decoration="@{viewModel.decoration}"
+                app:itemClickListener="@{viewModel.itemClickListener}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="@id/endGuideline"
                 app:layout_constraintStart_toStartOf="@id/startGuideline"
                 app:layout_constraintTop_toBottomOf="@id/textViewRelatedProduct"
+                app:products="@{viewModel.relatedProducts}"
                 app:reverseLayout="false"
                 tools:listitem="@layout/item_related_product" />
 

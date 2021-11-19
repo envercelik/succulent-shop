@@ -27,6 +27,12 @@ class ProductDetailViewModel(
     private val _relatedProducts = MutableLiveData<List<ProductItem>>()
     val relatedProducts: LiveData<List<ProductItem>> = _relatedProducts
 
+    val decoration = RelatedProductDecoration()
+    val adapter = RelatedProductAdapter()
+    val itemClickListener: (ProductItem) -> Unit = {
+        //move to product detail
+    }
+
     init {
         fetchProduct()
         fetchRelatedProductsById()
