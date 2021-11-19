@@ -7,7 +7,7 @@ import school.cactus.succulentshop.infra.BaseViewHolder
 import school.cactus.succulentshop.product.ProductItem
 
 class ProductAdapter : BaseAdapter<ProductItem>(DiffCallback()) {
-    var itemClickListener: (ProductItem) -> Unit = {}
+    override var itemClickListener: (ProductItem) -> Unit = {}
 
     class DiffCallback : DiffUtil.ItemCallback<ProductItem>() {
         override fun areItemsTheSame(oldItem: ProductItem, newItem: ProductItem) =

@@ -24,6 +24,9 @@ class ProductListViewModel(private val repository: ProductRepository) : BaseView
         navigation.navigate(action)
     }
 
+    val adapter = ProductAdapter()
+    val decoration = ProductDecoration()
+
     init {
         fetchProducts()
     }

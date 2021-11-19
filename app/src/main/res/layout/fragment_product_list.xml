@@ -19,6 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            app:adapter="@{viewModel.adapter}"
+            app:decoration="@{viewModel.decoration}"
             app:itemClickListener="@{viewModel.itemClickListener}"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:products="@{viewModel.products}"
