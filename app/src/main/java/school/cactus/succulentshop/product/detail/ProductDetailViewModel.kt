@@ -24,8 +24,12 @@ class ProductDetailViewModel(
     private val _product = MutableLiveData<ProductItem>()
     val product: LiveData<ProductItem> = _product
 
+    private val _relatedProducts = MutableLiveData<List<ProductItem>>()
+    val relatedProducts: LiveData<List<ProductItem>> = _relatedProducts
+
     init {
         fetchProduct()
+        fetchRelatedProductsById()
     }
 
     private fun fetchProduct() = viewModelScope.launch {
@@ -39,8 +43,23 @@ class ProductDetailViewModel(
         }
     }
 
+    private fun fetchRelatedProductsById() = viewModelScope.launch {
+        repository.getRelatedProductsById(productId).collect {
+            when (it) {
+                is Success -> onSuccess(it.data!!)
+                is TokenExpired -> onTokenExpired()
+                is UnexpectedError -> onUnexpectedError()
+                is Failure -> onFailure()
+            }
+        }
+    }
+
     private fun onSuccess(product: ProductItem) {
         _product.value = product
+    }
+
+    private fun onSuccess(products: List<ProductItem>) {
+        _relatedProducts.value = products
     }
 
     private fun onTokenExpired() {
@@ -71,6 +90,7 @@ class ProductDetailViewModel(
                 text = R.string.retry,
                 action = {
                     fetchProduct()
+                    fetchRelatedProductsById()
                 }
             )
         )

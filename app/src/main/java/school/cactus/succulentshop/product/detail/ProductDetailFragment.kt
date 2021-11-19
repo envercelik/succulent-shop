@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import school.cactus.succulentshop.R
 import school.cactus.succulentshop.databinding.FragmentProductDetailBinding
 import school.cactus.succulentshop.infra.BaseFragment
@@ -37,6 +38,16 @@ class ProductDetailFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().title = getString(R.string.app_name)
+
+        val layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val adapter = RelatedProductAdapter()
+        viewModel.relatedProducts.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = layoutManager
+        binding.recyclerView.addItemDecoration(RelatedProductDecoration())
     }
 
     override fun onDestroyView() {

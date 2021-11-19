@@ -4,6 +4,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import school.cactus.succulentshop.api.api
 import school.cactus.succulentshop.common.Resource
+import school.cactus.succulentshop.common.Resource.Error.*
+import school.cactus.succulentshop.common.Resource.Success
 import school.cactus.succulentshop.db.db
 
 
@@ -13,7 +15,7 @@ class ProductRepository {
         val cachedProducts = db.productDao().getAll()
 
         if (cachedProducts.isNotEmpty()) {
-            emit(Resource.Success(cachedProducts.toProductItemList()))
+            emit(Success(cachedProducts.toProductItemList()))
         }
 
         val response = try {
@@ -23,14 +25,14 @@ class ProductRepository {
         }
 
         when (response?.code()) {
-            null -> emit(Resource.Error.Failure())
+            null -> emit(Failure())
             200 -> {
                 val productItems = response.body()!!.toProductItemList()
-                emit(Resource.Success(productItems))
+                emit(Success(productItems))
                 db.productDao().insertAll(productItems.toProductEntityList())
             }
-            401 -> emit(Resource.Error.TokenExpired())
-            else -> emit(Resource.Error.UnexpectedError())
+            401 -> emit(TokenExpired())
+            else -> emit(UnexpectedError())
         }
     }
 
@@ -47,14 +49,30 @@ class ProductRepository {
 
             emit(
                 when (response?.code()) {
-                    null -> Resource.Error.Failure()
-                    200 -> Resource.Success(response.body()!!.toProductItem())
-                    401 -> Resource.Error.TokenExpired()
-                    else -> Resource.Error.UnexpectedError()
+                    null -> Failure()
+                    200 -> Success(response.body()!!.toProductItem())
+                    401 -> TokenExpired()
+                    else -> UnexpectedError()
                 }
             )
         } else {
-            emit(Resource.Success(cachedProduct.toProductItem()))
+            emit(Success(cachedProduct.toProductItem()))
+        }
+    }
+
+    suspend fun getRelatedProductsById(productId: Int): Flow<Resource<List<ProductItem>>> = flow {
+        val response = try {
+            emit(Resource.Loading())
+            api.getRelatedProductsById(productId)
+        } catch (e: Exception) {
+            null
+        }
+
+        when (response?.code()) {
+            null -> emit(Failure())
+            200 -> emit(Success(response.body()?.products!!.toProductItemList()))
+            401 -> emit(TokenExpired())
+            else -> emit(UnexpectedError())
         }
     }
 }
