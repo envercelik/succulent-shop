@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import school.cactus.succulentshop.R
 import school.cactus.succulentshop.auth.JwtStore
+import school.cactus.succulentshop.common.hideKeyboard
 import school.cactus.succulentshop.databinding.FragmentLoginBinding
 import school.cactus.succulentshop.infra.BaseFragment
 
@@ -37,6 +38,13 @@ class LoginFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().title = getString(R.string.log_in)
+
+        viewModel.showKeyboardState.observe(viewLifecycleOwner) {
+            if (!it) {
+                hideKeyboard()
+                viewModel.showKeyboardState.value = true
+            }
+        }
     }
 
     override fun onDestroyView() {

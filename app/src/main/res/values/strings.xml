@@ -35,4 +35,5 @@
     </string>
     <string name="product_detail_related_product">Related Product</string>
     <string name="product_detail_related_product_image_description">related product image</string>
+    <string name="signup_top_bar_title">Sign up</string>
 </resources>

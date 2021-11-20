@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import school.cactus.succulentshop.R
 import school.cactus.succulentshop.auth.JwtStore
+import school.cactus.succulentshop.common.hideKeyboard
 import school.cactus.succulentshop.databinding.FragmentSignupBinding
 import school.cactus.succulentshop.infra.BaseFragment
 
@@ -27,6 +29,19 @@ class SignupFragment : BaseFragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().title = getString(R.string.signup_top_bar_title)
+
+        viewModel.showKeyboardState.observe(viewLifecycleOwner) {
+            if (!it) {
+                hideKeyboard()
+                viewModel.showKeyboardState.value = true
+            }
+        }
     }
 
     override fun onDestroyView() {

@@ -38,7 +38,10 @@ class SignupViewModel(
     private val _passwordErrorMessage = MutableLiveData<Int>()
     val passwordErrorMessage: LiveData<Int> = _passwordErrorMessage
 
+    val showKeyboardState = MutableLiveData<Boolean>()
+
     fun onButtonSignupClick() = viewModelScope.launch {
+        showKeyboardState.value = false
         if (isEmailValid() and isUsernameValid() and isPasswordValid()) {
             val result = repository.sendSignupRequest(
                 email.value.orEmpty(),

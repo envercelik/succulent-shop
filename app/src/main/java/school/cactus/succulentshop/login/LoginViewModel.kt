@@ -11,10 +11,7 @@ import school.cactus.succulentshop.auth.JwtStore
 import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
 import school.cactus.succulentshop.infra.snackbar.SnackbarState
-import school.cactus.succulentshop.login.LoginRepository.LoginResult.ClientError
-import school.cactus.succulentshop.login.LoginRepository.LoginResult.Failure
-import school.cactus.succulentshop.login.LoginRepository.LoginResult.Success
-import school.cactus.succulentshop.login.LoginRepository.LoginResult.UnexpectedError
+import school.cactus.succulentshop.login.LoginRepository.LoginResult.*
 import school.cactus.succulentshop.login.validation.IdentifierValidator
 import school.cactus.succulentshop.login.validation.PasswordValidator
 
@@ -35,7 +32,10 @@ class LoginViewModel(
     val identifierErrorMessage: LiveData<Int> = _identifierErrorMessage
     val passwordErrorMessage: LiveData<Int> = _passwordErrorMessage
 
+    val showKeyboardState = MutableLiveData<Boolean>()
+
     fun onLoginButtonClick() = viewModelScope.launch {
+        showKeyboardState.value = false
         if (isIdentifierValid() and isPasswordValid()) {
             val result =
                 repository.sendLoginRequest(identifier.value.orEmpty(), password.value.orEmpty())
