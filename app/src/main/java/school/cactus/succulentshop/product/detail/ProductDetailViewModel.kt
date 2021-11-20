@@ -30,7 +30,8 @@ class ProductDetailViewModel(
     val decoration = RelatedProductDecoration()
     val adapter = RelatedProductAdapter()
     val itemClickListener: (ProductItem) -> Unit = {
-        //move to product detail
+        val directions = ProductDetailFragmentDirections.actionProductDetailFragmentSelf(it.id)
+        navigation.navigate(directions)
     }
 
     init {
