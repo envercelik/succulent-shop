@@ -36,6 +36,7 @@ class LoginViewModel(
 
     fun onLoginButtonClick() = viewModelScope.launch {
         showKeyboardState.value = false
+        _snackbarState.value = null
         if (isIdentifierValid() and isPasswordValid()) {
             val result =
                 repository.sendLoginRequest(identifier.value.orEmpty(), password.value.orEmpty())
