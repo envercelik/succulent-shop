@@ -7,17 +7,18 @@ import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
 import kotlinx.coroutines.launch
 import school.cactus.succulentshop.R
+import school.cactus.succulentshop.auth.AuthRepository
 import school.cactus.succulentshop.auth.JwtStore
+import school.cactus.succulentshop.common.Resource
 import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
 import school.cactus.succulentshop.infra.snackbar.SnackbarState
-import school.cactus.succulentshop.login.LoginRepository.LoginResult.*
 import school.cactus.succulentshop.login.validation.IdentifierValidator
 import school.cactus.succulentshop.login.validation.PasswordValidator
 
 class LoginViewModel(
     private val store: JwtStore,
-    private val repository: LoginRepository
+    private val repository: AuthRepository
 ) : BaseViewModel() {
 
     private val identifierValidator = IdentifierValidator()
@@ -42,10 +43,10 @@ class LoginViewModel(
                 repository.sendLoginRequest(identifier.value.orEmpty(), password.value.orEmpty())
 
             when (result) {
-                is Success -> onSuccess(result.jwt)
-                is ClientError -> onClientError(result.errorMessage)
-                UnexpectedError -> onUnexpectedError()
-                Failure -> onFailure()
+                is Resource.Success -> onSuccess(result.data!!.jwt)
+                is Resource.Error.ClientError -> onClientError(result.message!!)
+                is Resource.Error.UnexpectedError -> onUnexpectedError()
+                is Resource.Error.Failure -> onFailure()
             }
         }
     }

@@ -7,18 +7,19 @@ import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFI
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import kotlinx.coroutines.launch
 import school.cactus.succulentshop.R
+import school.cactus.succulentshop.auth.AuthRepository
 import school.cactus.succulentshop.auth.JwtStore
+import school.cactus.succulentshop.common.Resource
 import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
 import school.cactus.succulentshop.infra.snackbar.SnackbarState
-import school.cactus.succulentshop.signup.SignupRepository.RegisterResult.*
 import school.cactus.succulentshop.signup.validation.SignupEmailValidator
 import school.cactus.succulentshop.signup.validation.SignupPasswordValidator
 import school.cactus.succulentshop.signup.validation.SignupUsernameValidator
 
 class SignupViewModel(
     private val store: JwtStore,
-    private val repository: SignupRepository,
+    private val repository: AuthRepository,
 
     ) : BaseViewModel() {
     private val emailValidator = SignupEmailValidator()
@@ -51,10 +52,10 @@ class SignupViewModel(
             )
 
             when (result) {
-                is Success -> onSuccess(result.jwt)
-                is ClientError -> onClientError(result.errorMessage)
-                Failure -> onFailure()
-                UnexpectedError -> onUnexpectedError()
+                is Resource.Success -> onSuccess(result.data!!.jwt)
+                is Resource.Error.ClientError -> onClientError(result.message!!)
+                is Resource.Error.Failure -> onFailure()
+                is Resource.Error.UnexpectedError -> onUnexpectedError()
             }
         }
     }

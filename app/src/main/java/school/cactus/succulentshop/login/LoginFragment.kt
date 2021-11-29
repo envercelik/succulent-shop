@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import school.cactus.succulentshop.R
+import school.cactus.succulentshop.auth.AuthRepository
 import school.cactus.succulentshop.auth.JwtStore
 import school.cactus.succulentshop.common.hideKeyboard
 import school.cactus.succulentshop.databinding.FragmentLoginBinding
@@ -19,7 +20,7 @@ class LoginFragment : BaseFragment() {
     override val viewModel: LoginViewModel by viewModels {
         LoginViewModelFactory(
             store = JwtStore(requireContext()),
-            repository = LoginRepository()
+            repository = AuthRepository()
         )
     }
 
