@@ -80,7 +80,7 @@ class ProductListViewModel(private val repository: ProductRepository) : BaseView
         )
     }
 
-    private fun navigateToLogin() {
+    fun navigateToLogin() {
         val directions = ProductListFragmentDirections.tokenExpired()
         navigation.navigate(directions)
     }
