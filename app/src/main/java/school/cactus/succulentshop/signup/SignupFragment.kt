@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import school.cactus.succulentshop.R
 import school.cactus.succulentshop.auth.AuthRepository
 import school.cactus.succulentshop.auth.JwtStore
@@ -26,6 +27,9 @@ class SignupFragment : BaseFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        if (!JwtStore(requireContext()).loadJwt().isNullOrEmpty()) {
+            findNavController().navigate(R.id.loginSuccessful)
+        }
         _binding = FragmentSignupBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
