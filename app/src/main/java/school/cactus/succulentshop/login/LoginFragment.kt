@@ -9,8 +9,8 @@ import androidx.navigation.fragment.findNavController
 import school.cactus.succulentshop.R
 import school.cactus.succulentshop.auth.AuthRepository
 import school.cactus.succulentshop.auth.JwtStore
-import school.cactus.succulentshop.common.hideKeyboard
 import school.cactus.succulentshop.databinding.FragmentLoginBinding
+import school.cactus.succulentshop.hideKeyboard
 import school.cactus.succulentshop.infra.BaseFragment
 
 class LoginFragment : BaseFragment() {

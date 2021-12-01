@@ -3,13 +3,13 @@ package school.cactus.succulentshop.auth
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.ResponseBody
+import school.cactus.succulentshop.Resource
 import school.cactus.succulentshop.api.GenericErrorResponse
 import school.cactus.succulentshop.api.api
 import school.cactus.succulentshop.api.login.LoginRequest
 import school.cactus.succulentshop.api.login.LoginResponse
 import school.cactus.succulentshop.api.signup.RegisterRequest
 import school.cactus.succulentshop.api.signup.RegisterResponse
-import school.cactus.succulentshop.common.Resource
 
 class AuthRepository {
     suspend fun sendLoginRequest(

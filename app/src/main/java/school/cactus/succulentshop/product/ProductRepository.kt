@@ -2,10 +2,10 @@ package school.cactus.succulentshop.product
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import school.cactus.succulentshop.Resource
+import school.cactus.succulentshop.Resource.Error.*
+import school.cactus.succulentshop.Resource.Success
 import school.cactus.succulentshop.api.api
-import school.cactus.succulentshop.common.Resource
-import school.cactus.succulentshop.common.Resource.Error.*
-import school.cactus.succulentshop.common.Resource.Success
 import school.cactus.succulentshop.db.db
 
 

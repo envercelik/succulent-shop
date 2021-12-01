@@ -7,7 +7,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import school.cactus.succulentshop.R
-import school.cactus.succulentshop.common.Resource
+import school.cactus.succulentshop.Resource
 import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
 import school.cactus.succulentshop.infra.snackbar.SnackbarState

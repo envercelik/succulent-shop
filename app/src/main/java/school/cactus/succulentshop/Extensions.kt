@@ -1,4 +1,4 @@
-package school.cactus.succulentshop.common
+package school.cactus.succulentshop
 
 import android.app.Activity
 import android.content.Context
@@ -14,3 +14,5 @@ fun Context.hideKeyboard(view: View) {
     val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
+
+fun Int.resolveAsString(context: Context) = context.getString(this)
