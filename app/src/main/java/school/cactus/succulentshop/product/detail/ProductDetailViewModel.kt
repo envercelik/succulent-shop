@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import school.cactus.succulentshop.R
 import school.cactus.succulentshop.common.Resource.Error.*
+import school.cactus.succulentshop.common.Resource.Loading
 import school.cactus.succulentshop.common.Resource.Success
 import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
@@ -46,6 +47,7 @@ class ProductDetailViewModel(
                 is TokenExpired -> onTokenExpired()
                 is UnexpectedError -> onUnexpectedError()
                 is Failure -> onFailure()
+                is Loading -> _isLoading.value = true
             }
         }
     }
@@ -66,6 +68,7 @@ class ProductDetailViewModel(
     }
 
     private fun onSuccess(products: List<ProductItem>) {
+        _isLoading.value = false
         _relatedProducts.value = products
     }
 

@@ -33,17 +33,18 @@ class ProductListViewModel(private val repository: ProductRepository) : BaseView
 
     private fun fetchProducts() = viewModelScope.launch {
         repository.fetchProducts().collect {
-
             when (it) {
                 is Resource.Success -> onSuccess(it.data!!)
                 is Resource.Error.TokenExpired -> onTokenExpired()
                 is Resource.Error.UnexpectedError -> onUnexpectedError()
                 is Resource.Error.Failure -> onFailure()
+                is Resource.Loading -> _isLoading.value = true
             }
         }
     }
 
     private fun onSuccess(products: List<ProductItem>) {
+        _isLoading.value = false
         _products.postValue(products)
     }
 

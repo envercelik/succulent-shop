@@ -11,14 +11,14 @@ import school.cactus.succulentshop.db.db
 
 class ProductRepository {
     suspend fun fetchProducts(): Flow<Resource<List<ProductItem>>> = flow {
-
+        emit(Resource.Loading<List<ProductItem>>())
         val cachedProducts = db.productDao().getAll()
-
         if (cachedProducts.isNotEmpty()) {
             emit(Success(cachedProducts.toProductItemList()))
         }
 
         val response = try {
+            emit(Resource.Loading<List<ProductItem>>())
             api.listAllProducts()
         } catch (ex: Exception) {
             null
@@ -37,11 +37,12 @@ class ProductRepository {
     }
 
     suspend fun fetchProductDetail(productId: Int): Flow<Resource<ProductItem>> = flow {
-
+        emit(Resource.Loading<ProductItem>())
         val cachedProduct = db.productDao().getById(productId)
 
         if (cachedProduct == null) {
             val response = try {
+                emit(Resource.Loading<ProductItem>())
                 api.getProductById(productId)
             } catch (ex: Exception) {
                 null
@@ -62,7 +63,7 @@ class ProductRepository {
 
     suspend fun getRelatedProductsById(productId: Int): Flow<Resource<List<ProductItem>>> = flow {
         val response = try {
-            emit(Resource.Loading())
+            emit(Resource.Loading<List<ProductItem>>())
             api.getRelatedProductsById(productId)
         } catch (e: Exception) {
             null
