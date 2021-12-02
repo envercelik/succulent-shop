@@ -3,7 +3,6 @@ package school.cactus.succulentshop.auth
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.ResponseBody
-import school.cactus.succulentshop.Resource
 import school.cactus.succulentshop.api.GenericErrorResponse
 import school.cactus.succulentshop.api.api
 import school.cactus.succulentshop.api.login.LoginRequest

@@ -7,14 +7,14 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import school.cactus.succulentshop.R
-import school.cactus.succulentshop.Resource.Error.*
-import school.cactus.succulentshop.Resource.Loading
-import school.cactus.succulentshop.Resource.Success
 import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
 import school.cactus.succulentshop.infra.snackbar.SnackbarState
 import school.cactus.succulentshop.product.ProductItem
 import school.cactus.succulentshop.product.ProductRepository
+import school.cactus.succulentshop.product.Resource.Error.*
+import school.cactus.succulentshop.product.Resource.Loading
+import school.cactus.succulentshop.product.Resource.Success
 import school.cactus.succulentshop.product.list.ProductListFragmentDirections
 
 class ProductDetailViewModel(
@@ -59,6 +59,7 @@ class ProductDetailViewModel(
                 is TokenExpired -> onTokenExpired()
                 is UnexpectedError -> onUnexpectedError()
                 is Failure -> onFailure()
+                is Loading -> _isLoading.value = true
             }
         }
     }

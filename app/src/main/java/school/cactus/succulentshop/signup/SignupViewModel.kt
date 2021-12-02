@@ -7,9 +7,9 @@ import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_INDEFI
 import com.google.android.material.snackbar.BaseTransientBottomBar.LENGTH_LONG
 import kotlinx.coroutines.launch
 import school.cactus.succulentshop.R
-import school.cactus.succulentshop.Resource
 import school.cactus.succulentshop.auth.AuthRepository
 import school.cactus.succulentshop.auth.JwtStore
+import school.cactus.succulentshop.auth.Resource
 import school.cactus.succulentshop.infra.BaseViewModel
 import school.cactus.succulentshop.infra.snackbar.SnackbarAction
 import school.cactus.succulentshop.infra.snackbar.SnackbarState

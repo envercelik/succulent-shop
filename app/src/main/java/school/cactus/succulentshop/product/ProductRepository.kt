@@ -2,12 +2,10 @@ package school.cactus.succulentshop.product
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import school.cactus.succulentshop.Resource
-import school.cactus.succulentshop.Resource.Error.*
-import school.cactus.succulentshop.Resource.Success
 import school.cactus.succulentshop.api.api
 import school.cactus.succulentshop.db.db
-
+import school.cactus.succulentshop.product.Resource.Error.*
+import school.cactus.succulentshop.product.Resource.Success
 
 class ProductRepository {
     suspend fun fetchProducts(): Flow<Resource<List<ProductItem>>> = flow {
