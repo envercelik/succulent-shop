@@ -39,6 +39,7 @@ fun ImageView.imageUrl(imageUrl: String?) {
     imageUrl?.let {
         Glide.with(this)
             .load(it)
+            .override(512)
             .into(this)
     }
 }
