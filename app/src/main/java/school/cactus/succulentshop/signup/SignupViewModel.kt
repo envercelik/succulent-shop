@@ -43,7 +43,6 @@ class SignupViewModel(
 
     fun onButtonSignupClick() = viewModelScope.launch {
         showKeyboardState.value = false
-        _snackbarState.value = null
         if (isEmailValid() and isUsernameValid() and isPasswordValid()) {
             val result = repository.sendSignupRequest(
                 email.value.orEmpty(),
